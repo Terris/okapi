@@ -1,0 +1,9 @@
+.col2of3.automargin
+	%h2 Sign up for a payment plan
+	- if flash[:error]
+		.alert.alert-danger
+			%p= flash[:error]
+	- unless @student.available_plans.empty?
+		= render partial: "form"
+	- else
+		%p There are no current payment plans available. Go back to #{ link_to "your dashboard", root_path }.

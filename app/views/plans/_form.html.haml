@@ -1,0 +1,26 @@
+= form_for @plan do |f|
+	= render 'shared/error_messages', object: f.object
+	.mod
+		= f.label :name, "Name"
+		= f.text_field :name
+	- unless locked == true
+		.mod
+			= f.label :amount, "Amount"
+			= f.text_field :amount, :class => "currency-field"
+		%h4.collapsebottom Charge Intervals
+		%p.small Example: Interval Count: 4 & Interval: weeks = Charges occur every 4 weeks 
+		.group
+			.left.col1of2
+				.mod
+					= f.label :interval_count, "Interval Count"
+					= f.text_field :interval_count
+			.left.col1of2
+				.mod
+					= f.label :interval, "Interval"
+					= f.collection_select :interval, Plan::INTERVALS, :first, :last
+	.mod
+		= f.label :start_date, "Start Date"
+		%span.small This date will be used to project payment dates for each month.
+		= f.date_field :start_date
+	.mod
+		= f.submit "Submit", :class => "btn btn-primary"

@@ -1,0 +1,13 @@
+- @students.each do |s|
+	%tr{ :id => "student#{s.id}"}
+		%td= link_to s.name, s
+		%td= link_to s.email, "mailto:" + s.email
+		%td
+			- if !s.user_id.nil?
+				= link_to s.user.name, s.user
+			- else
+				%div{ :id => "invite_student#{s.id}"}
+					= render partial: "students/student_invite_status", locals: { s: s }
+		%td
+			-# #{link_to "Delete", s, method: "delete", remote: true, data: { confirm: "Are you sure you want to delete this student?"}, :class => "text-danger"} |
+			=link_to "Edit", edit_student_path(s)

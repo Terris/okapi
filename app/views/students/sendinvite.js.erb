@@ -1,0 +1,1 @@
+$("#invite_student<%= @student.id %>").html('<%= escape_javascript render partial: "students/student_invite_status", locals: {s: @student}  %>');

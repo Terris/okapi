@@ -1,0 +1,5 @@
+<h1>OKAPI NOTIFICATION</h1>
+<p><%= @student.name %> made a payment for <%= number_to_currency( @payment.amount ) %>.</p>
+<% if @payment.note != "" %>
+	<p><strong>Payment Note:</strong> <%= @payment.note %></p>
+<% end %>

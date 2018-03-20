@@ -1,0 +1,2 @@
+module SingleChargeHelper
+end

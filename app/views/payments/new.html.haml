@@ -1,0 +1,6 @@
+.col2of3.automargin
+	%h2 Make a one time payment
+	- if flash[:error]
+		.alert.alert-danger
+			%p= flash[:error]
+	= render "form"

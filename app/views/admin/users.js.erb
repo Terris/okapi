@@ -1,0 +1,2 @@
+$('#users-paginate').html('<%= escape_javascript render("users") %>');
+$('#users-paginator').html('<%= escape_javascript(paginate @users, :param_name => :user_page, :params => { :controller => "admin", :action => "users" }, :remote => true.to_s) %>');

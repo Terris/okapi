@@ -1,0 +1,76 @@
+%h2.collapsebottom.roman= @coupon.name
+= simple_format(@coupon.notes)
+.mod.table-responsive
+	%table
+		%thead
+			%tr
+				%th Amount Off
+				%th Creation Date
+				%th Admin Actions
+		%tbody
+			%tr{ :id => "coupon#{@coupon.id}"}
+				%td= number_to_currency(@coupon.amount_off)
+				%td= nicedate(@coupon.created_at)
+				%td #{link_to "Delete", @coupon, :method => "delete", remote: true, data: { confirm: "Are you sure you want to delete this coupon?"}, :class => "text-danger"}
+
+%hr
+%h3.roman Apply Coupon to Plan
+- if @plans.empty?
+	%p You haven't created any plans. #{link_to "Create New Plan &raquo;".html_safe, new_plan_path}
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Plan Name
+					%th Actions
+			%tbody
+				- @plans.each do |p|
+					%tr{ :id => "plan#{p.id}"}
+						%td= p.name
+						%td
+							- if @coupon.currently_applied_to_plan?(p.id)
+								Currently applied until next billing date.
+							- else
+								= link_to "Apply to Plan", apply_to_plan_coupon_path(@coupon, :plan => p.id), remote: true, data: { confirm: "Are you sure you want apply this coupon?" }
+%hr
+%h3.roman Apply Coupon to Student
+- if @students.empty?
+	%p No students have registered.
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Student Name
+					%th Student Email
+					%th Actions
+			%tbody
+				- @students.each do |s|
+					%tr{ :id => "student#{s.id}"}
+						%td= s.name
+						%td= link_to s.email, "mailto:#{s.email}"
+						%td
+							- if @coupon.currently_applied_to_student?(s.id)
+								Currently applied to student.
+							- else
+								= link_to "Apply to Student", apply_to_student_coupon_path(@coupon, :student => s.id), remote: true, data: { confirm: "Are you sure you want apply this coupon?" }
+
+%hr
+%h3.roman History
+- if @coupon.plan_coupons.empty?
+	%p No history for this coupon.
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Plan Name
+					%th Date Applied
+					%th Tuition Date
+			%tbody
+				- @coupon.plan_coupons.each do |pc|
+					%tr
+						%td= pc.plan.name
+						%td= nicedate(pc.created_at)
+						%td= nicedate(pc.tuition_date)

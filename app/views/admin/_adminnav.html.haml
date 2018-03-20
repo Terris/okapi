@@ -1,0 +1,9 @@
+%ul.nav.nav-tabs.group
+	%li{ class: ("active" if activepage == "rosters")  }= link_to "Rosters", admin_path
+	%li{ class: ("active" if activepage == "students")  }= link_to "Students", admin_students_path
+	%li{ class: ("active" if activepage == "plans")  }= link_to "Plans", admin_plans_path
+	%li{ class: ("active" if activepage == "coupons")  }= link_to "Coupons", admin_coupons_path
+	%li{ class: ("active" if activepage == "users")  }= link_to "Users", admin_users_path
+	%li{ class: ("active" if activepage == "subscriptions")  }= link_to "Subscriptions", admin_subscriptions_path
+	%li{ class: ("active" if activepage == "payments")  }= link_to "Payments", admin_payments_path
+	%li{ class: ("active" if activepage == "balances")  }= link_to "Balances", admin_balances_path

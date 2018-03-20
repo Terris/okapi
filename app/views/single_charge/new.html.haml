@@ -1,0 +1,6 @@
+.col2of3.automargin
+	%h2 Pay tuition.
+	- if flash[:error]
+		.alert.alert-danger
+			%p= flash[:error]
+	= render "form"

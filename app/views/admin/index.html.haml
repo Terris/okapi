@@ -1,0 +1,23 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: {activepage: "rosters"}
+.group
+	%h3.left Rosters
+	%p.right.small= link_to "+ New Roster", new_roster_path, :class => "btn btn-small btn-quiet"
+- if @rosters.empty?
+	%p No rosters yet. #{link_to "Add New Roster &raquo;".html_safe, new_roster_path}
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Class Name
+					%th Start Date
+					%th End Date
+					%th Admin Actions
+			%tbody
+				- @rosters.each do |r|
+					%tr{ :id => "roster#{r.id}"}
+						%td= link_to r.class_name, r
+						%td= nicedate(r.start_date)
+						%td= nicedate(r.end_date) if r.end_date
+						%td #{link_to "Delete", r, :method => "delete", remote: true, :confirm => "Are you sure you want to delete this roster?", :class => "text-danger"} | #{link_to "Edit", edit_roster_path(r)}

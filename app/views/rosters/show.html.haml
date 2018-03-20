@@ -1,0 +1,29 @@
+%h2.collapsebottom.roman= @roster.class_name
+.mod
+	%table
+		%thead
+			%tr
+				%th Start Date
+				%th End Date
+				%th Admin Actions
+		%tbody
+			%tr{ :id => "roster#{@roster.id}"}
+				%td= @roster.start_date
+				%td= @roster.end_date
+				%td #{link_to "Delete", @roster, :method => "delete", remote: true, :confirm => "Are you sure you want to delete this roster?", :class => "text-danger"} | #{link_to "Edit", edit_roster_path(@roster)}
+%hr
+%h3.roman Enrollment
+
+.group.plip
+	.left.col1of2
+		%h4.txt-center Not Enrolled
+		.mod.plip-target#plip-target-a
+			#plip-target-holder
+			- @students.each do |s|
+				= render partial: "enrollment_create_btn", locals: { s: s }
+	.left.col1of2
+		%h4.txt-center Enrolled
+		.mod.plip-target#plip-target-b
+			#plip-target-holder
+			- @enrolled_students.each do |s|
+				= render partial: "enrollment_remove_btn", locals: { s: s }

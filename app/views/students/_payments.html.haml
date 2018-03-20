@@ -1,0 +1,5 @@
+- @payments.each do |p|
+	%tr
+		%td= nicedate( p.created_at )
+		%td= number_to_currency(p.amount)
+		%td= p.note

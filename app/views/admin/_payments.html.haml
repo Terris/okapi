@@ -1,0 +1,13 @@
+- @payments.each do |p|
+	%tr
+		%td= nicedate( p.created_at )
+		- if p.student
+			%td= p.student.name
+		- else
+			%td= p.note
+		%td
+			- if p.subscription
+				= p.subscription.plan.name
+			- else
+				Single Payment
+		%td= number_to_currency(p.amount)

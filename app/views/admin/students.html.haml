@@ -1,0 +1,20 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: { activepage: "students"}
+.group
+	%h3.left Students
+	%p.right.small= link_to "+ New Student", new_student_path, :class => "btn btn-small btn-quiet"
+- if @students.empty?
+	%p No students yet. #{link_to "Add New Student &raquo;".html_safe, new_student_path}
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Name
+					%th Email
+					%th User Account
+					%th Admin Actions
+			%tbody#students-paginate
+				= render "students"
+	#students-paginator.group.mod
+		= paginate @students, :param_name => :student_page, :params => { :controller => "admin", :action => "students" }, :remote => true

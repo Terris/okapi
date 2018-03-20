@@ -1,0 +1,2 @@
+$("#plipbtn<%= @student.id %>").remove();
+$('#plip-target-b #plip-target-holder').after('<%= escape_javascript render partial: "enrollment_remove_btn", locals: { s: @student }  %>');

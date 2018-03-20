@@ -1,0 +1,25 @@
+= form_for(@user) do |f|
+	= render 'shared/error_messages', object: f.object
+
+	.mod
+		= f.label :name
+		- if !@newstudent.nil?
+			= f.text_field :name, :value => @newstudent.name
+		- else
+			= f.text_field :name
+	.mod
+		- if !@newstudent.nil?
+			= f.label :email, "Email"
+			<strong>#{@user.email}</strong> (you can change this later)
+			= f.hidden_field :email, :value => @user.email
+		- else
+			= f.label :email, "Email"
+			= f.text_field :email, :autocomplete =>"off"
+	.mod
+		= f.label :password, "Password (at least 6 characters)"
+		= f.password_field :password, :autocomplete =>"off"
+	.mod
+		= f.label :password_confirmation, "Confirm Password"
+		= f.password_field :password_confirmation, :autocomplete =>"off"
+	.mod
+		= f.submit "Submit", :class => "btn btn-primary"

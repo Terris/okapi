@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  class_name: MyString
+  start_date: 2014-03-15
+  end_date: 2014-03-15
+  plan_id: 
+
+two:
+  class_name: MyString
+  start_date: 2014-03-15
+  end_date: 2014-03-15
+  plan_id: 

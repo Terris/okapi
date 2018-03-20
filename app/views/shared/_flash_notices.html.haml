@@ -1,0 +1,8 @@
+- if notice || !flash.empty?
+	.alert.mod
+		- if notice
+			.alert-info
+				%p= notice 
+		- flash.each do |key, value|
+			%div{ :class => "alert-#{key}" }
+				%p= value

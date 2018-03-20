@@ -1,0 +1,6 @@
+- if s.invites_sent >= 1
+	#{pluralize(s.invites_sent, 'Invite')} sent:
+	= link_to "Resend Invite", sendinvite_student_path(s), remote: true
+- else
+	Invite not sent:
+	= link_to "Send Invite", sendinvite_student_path(s), remote: true

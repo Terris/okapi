@@ -1,0 +1,5 @@
+<h1>Hi <%= @student.name %>,</h1>
+<p>Unfortunately we weren't able to process your payment for the <%= @plan.name %> plan.</p>
+<p>Please double check that the card we have on file is still valid. <%= link_to "Edit billing info.", edit_student_subscription_url(@student, @subscription) %></p>
+<p>If you have questions, please send an email to foo@example.com.</p>
+<p>Thanks!</p>

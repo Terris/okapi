@@ -1,0 +1,18 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: { activepage: "payments"}
+%h3 Payment History
+- if @payments.empty?
+	%p No payments recorded yet.
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Date
+					%th Student
+					%th Plan
+					%th Amount
+			%tbody#payments-paginate
+				= render "payments"
+	#payments-paginator.group.mod
+		= paginate @payments, :param_name => :payment_page, :params => { :controller => "admin", :action => "payments" }, :remote => true

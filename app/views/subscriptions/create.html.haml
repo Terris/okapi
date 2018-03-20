@@ -1,0 +1,22 @@
+%h2 Win!
+%p You're all signed up for the <strong>#{@plan.name} plan</strong> and your first charge of <strong>#{number_to_currency(@plan.amount_with_coupon)}</strong> will be made <strong>#{ @plan.humanize_next_billing_date }</strong>.
+- if @plan.active_coupon
+	%p <strong>Note: A coupon for #{number_to_currency(@plan.active_coupon.coupon.amount_off)} has been applied to the first bill.</strong>
+%p We'll be sure to send you an email reminder the day before each charge.
+
+%h3 Plan Details
+.mod
+	%table
+		%thead
+			%tr
+				%th Plan Name
+				%th Billing Cycle
+				%th Start Date
+				%th Tuition Amount
+		%tbody
+			%tr
+				%td= @plan.name
+				%td Every #{ @plan.interval_count.nil? ? "1" : @plan.interval_count } #{@plan.interval}s.
+				%td= @plan.humanize_next_billing_date
+				%td= number_to_currency(@plan.amount)
+%p= link_to "&laquo; back to your dashboard".html_safe, current_user_student

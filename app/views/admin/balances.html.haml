@@ -1,0 +1,6 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: { activepage: "balances"}
+%h3 Stripe Balances
+%p= number_to_currency(@balance[:available] / 100 )
+%h3 Pending Balance
+%p= number_to_currency(@balance[:pending] / 100 )

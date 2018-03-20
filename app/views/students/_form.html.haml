@@ -1,0 +1,17 @@
+= form_for @student do |f|
+	= render 'shared/error_messages', object: f.object
+	.mod
+		= f.label :name, "Name"
+		= f.text_field :name
+	.mod
+		= f.label :email, "Email"
+		= f.text_field :email
+	.mod
+		= f.label :phone, "Phone"
+		= f.text_field :phone
+	- if current_user.admin == true
+		.mod.group.checkbox-single
+			= check_box_tag :send_invite_email
+			= label_tag :send_invite_email, "Send Invite Email"
+	.mod
+		= f.submit "Submit", :class => "btn btn-primary"

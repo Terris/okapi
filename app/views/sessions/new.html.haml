@@ -1,0 +1,6 @@
+.col2of3.automargin
+	%h2 Please Sign In
+	- if flash[:error]
+		.alert.alert-danger
+			%p= flash[:error]
+	= render "form"

@@ -1,0 +1,113 @@
+%h2.collapsebottom.roman
+	- if current_user.is_admin? && current_user_student != @student
+		#{@student.name}'s Account
+	- else
+		Hi #{@student.name}!
+%h3.roman Pay Tuition
+.group
+	.left.col1of2
+		.well
+			%h4.txt-center Make a one time payment.
+			%p User your debit or credit card to make a one time payment in any amount.
+			%p=link_to "One Time Payment", new_student_payment_path(@student), :class => "btn btn-primary"
+	- unless Plan.first.nil?
+		.left.col1of2
+			.well
+				%h4.txt-center Set up automatic payments.
+				%p We'll automatically charge your card on the day your tuition is due each month. Cancel anytime.
+				%p=link_to "Automatic Payments", new_student_subscription_path(@student), :class => "btn btn-primary"
+%hr
+%ul.nav.nav-tabs.group
+	%li.active= link_to "Plans", "#plans", data: { toggle: "tab" }
+	%li= link_to "Payment History", "#payments", data: { toggle: "tab" }
+	%li= link_to "Student Info", "#studentinfo", data: { toggle: "tab" }
+	- unless @studentuser.nil?
+		%li= link_to "Login Credentials", "#logincredentials", data: { toggle: "tab" }
+.tab-content
+	.tab-pane.active#plans
+		%h3 Plans
+		- if @subscriptions.empty?
+			- if Plan.first.nil?
+				%p There are no available payment plans at this time.
+			-else
+				- if current_user.is_admin? && current_user_student != @student
+					%p #{@student.name} hasn't set up automatic payments yet.
+				- else
+					%p You haven't set up any automatic payments yet. #{link_to "Sign up for automatic payments &raquo;".html_safe, new_student_subscription_path(@student) }
+		- else
+			.mod
+				%table
+					%thead
+						%tr
+							%th Name
+							%th Charge
+							%th Status
+							%th Next Billing Date
+							%th Actions
+					%tbody
+						- @subscriptions.each do |s|
+							%tr{ :id => "subscription#{s.id}"}
+								%td= s.plan.name
+								%td= number_to_currency( s.plan.amount )
+								%td
+									- if s.invoice_status == "pending: payment failed"
+										= link_to s.invoice_status, edit_student_subscription_path(@student.id, s.id), :class => "text-danger"
+									- elsif s.invoice_status == "pending cancel"
+										%span.text-danger= s.invoice_status
+									- else
+										%span.text-success= s.invoice_status
+								%td= nicedate( s.plan.next_billing_date )
+								%td
+									= link_to "Cancel", student_subscription_path(@student.id, s.id), :method => "delete", remote: true, :confirm => "Are you sure you want to cancel this plan?", :class => "text-danger"	
+									|
+									= link_to "Edit Card", edit_student_subscription_path(@student.id, s.id)
+	.tab-pane#payments
+		%h3 Payment History
+		- if @payments.empty?
+			- if current_user.is_admin? && current_user_student != @student
+				%p #{@student.name} hasn't made any payments yet.
+			- else
+				%p You haven't made any payments yet.
+		- else
+			.mod
+				%table
+					%thead
+						%tr
+							%th Date
+							%th Amount
+							%th Note
+					%tbody#payments-paginate
+						= render "payments"
+				#paginator.group
+					= paginate @payments, :params => { :controller => "students", :action => "payments" }, :remote => true
+	.tab-pane#studentinfo
+		%h3 Student Info
+		.mod
+			%table
+				%thead
+					%tr
+						%th Name
+						%th Email
+						%th Phone
+						%th Actions
+				%tbody
+					%tr{ :id => "student#{@student.id}"}
+						%td= @student.name
+						%td= link_to @student.email, "mailto:" + @student.email
+						%td= @student.phone
+						%td= link_to "Edit", edit_student_path(@student)
+	- unless @studentuser.nil?
+		.tab-pane#logincredentials
+			%h3 Login Credentials
+			.mod
+				%table
+					%thead
+						%tr
+							%th Email
+							%th Password
+							%th Actions
+					%tbody
+						%tr{ :id => "student#{@student.id}"}
+							%td= link_to @studentuser.email, "mailto:" + @studentuser.email
+							%td &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;
+							%td= link_to "Edit", edit_user_path(@studentuser.id)

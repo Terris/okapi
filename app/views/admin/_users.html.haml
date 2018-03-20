@@ -1,0 +1,9 @@
+- @users.each do |u|
+	%tr{ :id => "user#{u.id}"}
+		%td= link_to u.name + "#{u.admin == true ? ' [admin]' :'' }", user_path(u)
+		%td= link_to u.email, "mailto:#{u.email}"
+		%td
+			- unless u.admin == true
+				#{link_to "Deactivate", deactivate_user_path(u), remote: true, :confirm => "Are you sure you want to deactivate this user?", :class => "text-danger"}
+				|
+			#{ link_to "Edit", edit_user_path(u)}

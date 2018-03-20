@@ -1,0 +1,31 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: { activepage: "users"}
+%h3 App Users
+.mod.table-responsive
+	%table
+		%thead
+			%tr
+				%th Name
+				%th Email
+				%th Admin Actions
+		%tbody#users-paginate
+			= render "users"
+#users-paginator.group.mod
+	= paginate @users, :param_name => :users_page, :params => { :controller => "admin", :action => "users" }, :remote => true
+- unless @deactivatedusers.empty?
+	%h4.collapsebottom Deactivated Users
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Name
+					%th Email
+					%th Admin Actions
+			%tbody
+				- @deactivatedusers.each do |u|
+					%tr{ :id => "user#{u.id}"}
+						%td= link_to u.name + "#{u.admin == true ? ' [admin]' :'' }", user_path(u)
+						%td= link_to u.email, "mailto:#{u.email}"
+						%td
+							- unless u.admin == true
+								#{link_to "Activate", activate_user_path(u), remote: true, :class => "text-danger"}

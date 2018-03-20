@@ -1,0 +1,16 @@
+<h1>Hi <%= @student.name %>,</h1>
+<p>You're all signed up for the <%= @plan.name %> plan and your first charge of <%= number_to_currency(@plan.amount_with_coupon) %> will be made <%= @plan.humanize_next_billing_date %>.</p>
+<% if @plan.active_coupon %>
+	<p> <strong>Note: A coupon for <%= number_to_currency(@plan.active_coupon.coupon.amount_off) %> has been applied to the first bill.</strong>
+<% end %>
+<p>We'll be sure to send you an email reminder the day before each charge.</p>
+<h3>PLAN DETAILS</h3>
+<ul>
+	<li><strong>Plan Name:</strong> <%= @plan.name %>
+	<li><strong>Billing Cycle:</strong> Every <%= @plan.interval_count.nil? ? "1" : @plan.interval_count %> <%= @plan.interval %>s.</li>
+	<li><strong>Start Date:</strong> <%= @plan.humanize_next_billing_date %></li>
+	<li><strong>Tuition Amount:</strong> <%= number_to_currency(@plan.amount) %></li>
+</ul>
+<p>Please print or save this email for your records.</p>
+<p>If you have questions, please send an email to foo@example.com.</p>
+<p>Thanks!</p>

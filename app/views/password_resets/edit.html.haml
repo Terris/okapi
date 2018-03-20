@@ -1,0 +1,12 @@
+.col2of3.automargin
+	%h2 Reset Password
+	= form_for @user, :url => password_reset_path(params[:id]) do |f|
+		= render 'shared/error_messages', object: f.object
+		.mod
+			= f.label :password, "Password (at least 6 characters)"
+			= f.password_field :password
+		.mod
+			= f.label :password_confirmation, "Confirm Password (at least 6 characters)".html_safe
+			= f.password_field :password_confirmation
+		.mod
+			= f.submit "Update Password", :class => "btn btn-primary"

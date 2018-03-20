@@ -1,0 +1,2 @@
+$('#students-paginate').html('<%= escape_javascript render("students") %>');
+$('#students-paginator').html('<%= escape_javascript(paginate @students, :param_name => :student_page, :params => { :controller => "admin", :action => "students" }, :remote => true.to_s) %>');

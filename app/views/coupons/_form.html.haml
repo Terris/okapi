@@ -1,0 +1,13 @@
+= form_for @coupon do |f|
+	= render 'shared/error_messages', object: f.object
+	.mod
+		= f.label :name, "Name"
+		= f.text_field :name
+	.mod
+		= f.label :amount_off, "Amount Off"
+		= f.text_field :amount_off, :class => "currency-field"
+	.mod
+		= f.label :notes, "Notes"
+		= f.text_area :notes
+	.mod
+		= f.submit "Submit", :class => "btn btn-primary"

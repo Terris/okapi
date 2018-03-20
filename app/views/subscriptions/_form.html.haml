@@ -1,0 +1,26 @@
+= form_for [:student, @subscription], html: { :id => "stripe-form", :class => "livevalidate" } do |f|
+	= render 'shared/error_messages', object: f.object
+	.payment-errors
+	.mod
+		= f.label :Plan, "Select A Plan"
+		= f.collection_select :plan_id, @student.available_plans, :id, :name_with_price_and_interval
+	%h4.collapsebottom Card Information
+	%p Note: Your card won't be charged until the first day of the upcoming tuition period.
+	.mod
+		%label{ :for => "card_number" } Card Number <span class="labelnote">required</span>
+		%input{ :id => "card_number", :type => "text", :maxlength => "19", :autocomplete =>"off", :data => {:stripe => "number"} }
+	.group
+		.left.col2of5
+			.mod
+				%label{ :for => "month" } Expiration <span class="labelnote">required :: mm/yy</span>
+				%input{ :id => "monthyear", :type => "text", :size => "9", :maxlength => "7", data: { livevalidate: "cc-monthyear" }, "x-autocompletetype" => "cc-exp", required: ""}
+				.cc-exp-fields
+					%input{ :id => "month", :type => "text", :size => "2", :maxlength => "2", tabindex: "-1", :data => {:stripe => "exp-month"} }
+					%input{ :id => "year", :type => "text", :size => "4", :maxlength => "4", tabindex: "-1", :data => {:stripe => "exp-year"} }
+		.left.col2of5
+			.mod
+				%label{ :for => "cvc" } CVC <span class="labelnote">required :: 1234</span>
+				%input{ :id => "cvc", :type => "text", :maxlength => "4", :data => {:stripe => "cvc"}  }
+	.mod
+		= submit_tag "Submit", :class => "btn btn-primary", :id => "submit-btn"
+	%p= link_to "&laquo; back to your dashboard".html_safe, current_user_student

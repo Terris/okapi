@@ -1,0 +1,25 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: { activepage: "subscriptions"}
+%h3 Subscriptions
+- if @subscriptions.empty?
+	%p There are no active subscriptions.
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Student
+					%th Plans
+					%th Status
+					%th Admin Actions
+			%tbody
+				- @subscriptions.each do |s|
+					%tr{ :id => "subscription#{s.id}"}
+						%td= s.student.name
+						%td= s.plan.name
+						%td
+							- if s.invoice_status == "pending: payment failed" || s.invoice_status == "pending cancel"
+								%span.text-danger= s.invoice_status
+							- else
+								%span.text-success= s.invoice_status
+						%td= link_to "Cancel", student_subscription_path(s.student.id, s.id), :method => "delete", remote: true, :confirm => "Are you sure you want to cancel this subscription?", :class => "text-danger" unless s.invoice_status == "pending cancel"

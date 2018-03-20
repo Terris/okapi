@@ -1,0 +1,23 @@
+%h2.collapsebottom.roman Admin
+= render partial: "admin/adminnav", locals: { activepage: "coupons"}
+.group
+	%h3.left Coupons
+	%p.right.small= link_to "+ New Coupon", new_coupon_path, :class => "btn btn-small btn-quiet"
+- if @coupons.empty?
+	%p No coupons yet. #{link_to "Add New Coupon &raquo;".html_safe, new_coupon_path}
+- else
+	.mod.table-responsive
+		%table
+			%thead
+				%tr
+					%th Name
+					%th Amount Off
+					%th Creation Date
+					%th Admin Actions
+			%tbody
+				- @coupons.each do |c|
+					%tr{ :id => "coupon#{c.id}"}
+						%td= link_to c.name, c
+						%td= number_to_currency(c.amount_off)
+						%td= nicedate(c.created_at)
+						%td #{link_to "Delete", c, :method => "delete", remote: true, :confirm => "Are you sure you want to delete this coupon?", :class => "text-danger"}

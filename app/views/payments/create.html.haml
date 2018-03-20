@@ -1,0 +1,16 @@
+%h2 Win!
+%p You paid <strong>#{ number_to_currency(@dollaramount) }</strong>. We'll send you a copy of your receipt via email.
+%h3 Payment Details
+.mod
+	%table
+		%thead
+			%tr
+				%th Date
+				%th Amount
+				%th Note
+		%tbody
+			%tr
+				%td= nicedate(Date.today)
+				%td= number_to_currency(@dollaramount)
+				%td= @note
+%p= link_to "&laquo; back to your dashboard".html_safe, current_user_student

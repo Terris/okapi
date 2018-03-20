@@ -1,0 +1,14 @@
+= form_for @roster do |f|
+	= render 'shared/error_messages', object: f.object
+	.mod
+		= f.label :class_name, "Class Name"
+		= f.text_field :class_name
+	.mod
+		= f.label :start_date, "Start Date"
+		= f.date_field :start_date
+	.mod
+		= f.label :end_date, "End Date"
+		%span.small.collapsetop If there's no end date, just leave this blank.
+		= f.date_field :end_date
+	.mod
+		= f.submit "Submit", :class => "btn btn-primary"

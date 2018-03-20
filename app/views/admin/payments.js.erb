@@ -1,0 +1,2 @@
+$('#payments-paginate').html('<%= escape_javascript render("payments") %>');
+$('#payments-paginator').html('<%= escape_javascript(paginate @payments, :param_name => :payment_page, :params => { :controller => "admin", :action => "payments" }, :remote => true.to_s) %>');

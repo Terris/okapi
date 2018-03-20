@@ -1,0 +1,46 @@
+<h1>Hi <%= @student.name %>,</h1>
+<p>As a student at Okapi, you're invited to sign up for an account at our Tuition Gateway.</p>
+<p>As a member, you'll be able to pay your tuition with any debit or credit card that you normally use.</p>
+<p>Students are incented with a $10 discount to sign up for Automatic Payments, or by paying cash.  Specific scenarios are outlined below:</p>
+<ul>
+  <li><strong>All students subscribing to an Automatic Payment Plan will be charged $165 on the first day of the tuition period.  Students will receive an email reminder that their cards will be charged one day before the first day of the tuition period.</strong></li>
+  <li><strong>All students paying as they go, either via Check or via the One Time Payment function will be charged $175 for their tuition, NOT $165, as there is a $10 discount for signing up for Automatic Payments.</strong></li>
+  <li><strong>All students paying cash on the first night of a new tuition period will be charged $165.</strong></li>
+</ul>
+<p><strong>Just click the following link to sign up: <%= link_to "Sign Up!", signup_url(:it => @student.invite_token) %></strong></p>
+
+<h2>Instructions</h2>
+<br />
+<h3>How to create an account:</h3>
+<ol>
+  <li>Click Sign Up!. This will open a sign up page in your browser with your name and email address (you can always change this information later).</li>
+  <li>Enter a password in the "Password" field of at least six characters.</li>
+  <li>Enter the same password again in the "Confirm Password" field.</li>
+  <li>Click the "Submit" button.</li>
+</ol>
+
+<h3>How to sign up for Automatic Payments for on-going classes:</h3>
+<ol>
+  <li>Navigate to the "My Dashboard" page by clicking on the "My Dashboard" link at the top right of the page.</li>
+  <li>Click the blue "Automatic Payments" button in the body of the page.</li>
+  <li>Select the plan you want to sign up for (you may only sign up for each plan one time per account). For example, if you are a Tuesday night student, select 'Tuesday Night Acting Workshop'.</li>
+  <li>Enter your debit or credit card number without dashes or spaces.</li>
+  <li>Enter the card expiration date in the following format: MM/YY.</li>
+  <li>Enter the CVC/CVV (three digit code on the back of the card, or four digit code on the front if using AMEX).</li>
+  <li>Click the Submit button.</li>
+  <li>You will be taken to a confirmation page with details about your plan and will be emailed a receipt. Please print or save this page for your own records.</li>
+</ol>
+
+<h3>How to make a One Time Payment with your debit/credit card:</h3>
+<ol>
+  <li>Navigate to the "My Dashboard" page by clicking on the "My Dashboard" link at the top right of the page.</li>
+  <li>Click the blue "One Time Payment" button in the body of the page.</li>
+  <li>Enter the amount you want to pay in decimal format (i.e. 175.00).</li>
+  <li>Enter your debit/credit card number without dashes or spaces.</li>
+  <li>Enter the card expiration date in the following format: MM/YY.</li>
+  <li>Enter the CVC/CVV (three digit code on the back of the card, or four digit code on the front if using AMEX).</li>
+  <li>Enter a note describing the purpose of the payment (i.e. March Wednesday night workshop).</li>
+  <li>Click the Submit button.</li>
+  <li>You should be taken to a confirmation page with details about your charge and you will be emailed a receipt. Please print or save this page for your own records.</li>
+</ol>
+<p>If you have further questions, please send an email to <%= link_to "foo@example.com", "mailto:foo@example.com" %>.</p>
